@@ -23,6 +23,7 @@ class SurveyController {
 
   async show ({ params, request, response, view }) {
     const survey = await Survey.findOrFail(params.id)
+    await survey.load('feedback')
     return survey
   }
 

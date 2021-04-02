@@ -1,5 +1,7 @@
 'use strict'
 
+const SurveyController = require('../app/Controllers/Http/SurveyController')
+
 /*
 |--------------------------------------------------------------------------
 | Routes
@@ -26,3 +28,16 @@ Route.post('/sessions', 'SessionController.create')
 Route.resource('surveys', 'SurveyController')
   .apiOnly()
   .middleware('auth')
+
+// Samething as
+// Route.get('/surveys', 'SurveyController.index').middleware('auth')
+// Route.get('/surveys/:id', 'SurveyController.show').middleware('auth')
+// Route.post('/surveys', 'SurveyController.store').middleware('auth')
+// Route.patch('/surveys/:id', 'SurveyController.patch').middleware('auth')
+
+Route.resource('feedbacks', 'FeedbackController')
+  .apiOnly()
+
+Route.get('/feedbacks/:id', 'SurveyController.show').middleware('auth')
+Route.post('/feedbacks', 'SurveyController.store')
+Route.delete('/feedbacks/:id', 'SurveyController.destroy').middleware('auth')

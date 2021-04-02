@@ -15,6 +15,7 @@ class FeedbackSchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.integer('value').notNullable()
+      table.text('commentary')
       table.string('response_user').notNullable()
       table.timestamps()
     })

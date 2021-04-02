@@ -15,7 +15,7 @@ class SurveySchema extends Schema {
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
       table.string('title').notNullable()
-      table.string('description')
+      table.text('description')
       table.string('form_introduction_text')
       table.timestamps()
     })

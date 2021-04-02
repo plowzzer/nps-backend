@@ -4,8 +4,11 @@ const Survey = use('App/Models/Survey')
 
 class SurveyController {
 
-  async index ({ request, response, view }) {
-    const surveys = await Survey.all()
+  async index ({ auth, request, response, view }) {
+    const surveys = await Survey
+      .query()
+      .where('user_id', auth.user.id)
+      .fetch()
     return surveys
   }
 
@@ -23,6 +26,11 @@ class SurveyController {
 
   async show ({ params, request, response, view }) {
     const survey = await Survey.findOrFail(params.id)
+    
+    if (survey.user_id !== auth.user.id){
+      return response.status(500).send({ error: 'User does not have access to this survey' })
+    }
+    
     await survey.load('feedback')
     return survey
   }

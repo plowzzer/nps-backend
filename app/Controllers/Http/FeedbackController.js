@@ -20,8 +20,14 @@ class FeedbackController {
       return response.status(500).send({ error: 'This survey does not exists' })
     }
 
-    // TODO: Need to test this, the user can not response the same form, but can do it in others
-    const response_user = await Feedback.findBy('response_user', data.response_user)
+    const response_user = await Survey
+      .query()
+      .where('uuid', data.survey_id)
+      .whereHas('feedbacks', (feedback) => {
+        feedback.where('response_user', data.response_user)
+      })
+      .fetch()
+    
     if (response_user) {
       return response.status(500).send({ error: 'User has already answered this survey' })
     }

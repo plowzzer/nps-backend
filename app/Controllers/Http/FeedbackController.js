@@ -5,8 +5,6 @@ const Feedback = use('App/Models/Feedback')
 
 class FeedbackController {
 
-  // async index ({ request, response, view }) {
-
   async store ({ request, response }) {    
     const data = request.only([
       'survey_id',
@@ -41,9 +39,6 @@ class FeedbackController {
     await feedback.load('survey')
     return feedback
   }
-
-  // async update ({ params, request, response }) {
-  // }
 
   async destroy ({ params, request, response }) {
     const feedback = await Feedback.findOrFail(params.id)

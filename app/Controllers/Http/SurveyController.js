@@ -24,8 +24,8 @@ class SurveyController {
     return survey
   }
 
-  async show ({ params, request, response, view }) {
-    const survey = await Survey.findOrFail(params.id)
+  async show ({ auth, params, request, response, view }) {
+    const survey = await Survey.findByOrFail('uuid', params.uuid)
     
     if (survey.user_id !== auth.user.id){
       return response.status(500).send({ error: 'User does not have access to this survey' })
@@ -48,7 +48,7 @@ class SurveyController {
   }
 
   async destroy ({ params, request, response }) {
-    const survey = await Survey.findOrFail(params.id)
+    const survey = await Survey.findByOrFail('uuid', params.uuid)
 
     if (survey.user_id !== auth.user.id) {
       return response.status(401).send({ error: 'Not authorized' })

@@ -4,6 +4,11 @@
 const Model = use('Model')
 
 class Survey extends Model {
+  static boot() {
+    super.boot();
+    this.addHook("beforeCreate", "SurveyHook.uuid");
+  }
+
   user () {
     return this.belongsTo('App/Models/User')
   }

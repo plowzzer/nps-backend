@@ -25,15 +25,15 @@ Route.get('/', () => {
 Route.post('/users', 'UserController.create')
 Route.post('/sessions', 'SessionController.create')
 
-Route.resource('surveys', 'SurveyController')
-  .apiOnly()
-  .middleware('auth')
+// Route.resource('surveys', 'SurveyController')
+//   .apiOnly()
+//   .middleware('auth')
 
 // Samething as
-// Route.get('/surveys', 'SurveyController.index').middleware('auth')
-// Route.get('/surveys/:id', 'SurveyController.show').middleware('auth')
-// Route.post('/surveys', 'SurveyController.store').middleware('auth')
-// Route.patch('/surveys/:id', 'SurveyController.patch').middleware('auth')
+Route.get('/surveys', 'SurveyController.index').middleware('auth')
+Route.get('/surveys/:uuid', 'SurveyController.show').middleware('auth')
+Route.post('/surveys', 'SurveyController.store').middleware('auth')
+Route.patch('/surveys/:uuid', 'SurveyController.patch').middleware('auth')
 
 Route.resource('feedbacks', 'FeedbackController')
   .apiOnly()

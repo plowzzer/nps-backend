@@ -14,6 +14,7 @@ class SurveySchema extends Schema {
         .inTable('users')
         .onUpdate('CASCADE')
         .onDelete('CASCADE')
+      table.uuid('uuid')
       table.string('title').notNullable()
       table.text('description')
       table.string('form_introduction_text')

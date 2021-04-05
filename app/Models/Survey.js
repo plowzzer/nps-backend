@@ -13,7 +13,7 @@ class Survey extends Model {
     return this.belongsTo('App/Models/User')
   }
 
-  feedback () {
+  feedbacks () {
     return this.hasMany('App/Models/Feedback')
   }
 }

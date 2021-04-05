@@ -31,7 +31,7 @@ class SurveyController {
       return response.status(500).send({ error: 'User does not have access to this survey' })
     }
     
-    await survey.load('feedback')
+    await survey.load('feedbacks')
     return survey
   }
 

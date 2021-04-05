@@ -41,3 +41,5 @@ Route.resource('feedbacks', 'FeedbackController')
 Route.get('/feedbacks/:id', 'SurveyController.show').middleware('auth')
 Route.post('/feedbacks', 'SurveyController.store')
 Route.delete('/feedbacks/:id', 'SurveyController.destroy').middleware('auth')
+
+Route.get('/surveys/:uuid/score', 'ScoreController.index').middleware('auth')

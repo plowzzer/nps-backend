@@ -33,7 +33,7 @@ Route.post('/sessions', 'SessionController.create')
 Route.get('/surveys', 'SurveyController.index').middleware('auth')
 Route.get('/surveys/:uuid', 'SurveyController.show').middleware('auth')
 Route.post('/surveys', 'SurveyController.store').middleware('auth')
-Route.patch('/surveys/:uuid', 'SurveyController.patch').middleware('auth')
+Route.patch('/surveys/:uuid', 'SurveyController.update').middleware('auth')
 
 Route.resource('feedbacks', 'FeedbackController')
   .apiOnly()

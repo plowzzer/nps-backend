@@ -28,15 +28,20 @@ class SurveyController {
     const survey = await Survey.findByOrFail('uuid', params.uuid)
     
     if (survey.user_id !== auth.user.id){
-      return response.status(500).send({ error: 'User does not have access to this survey' })
+      return response.status(401).send({ error: 'User does not have access to this survey' })
     }
     
     await survey.load('feedbacks')
     return survey
   }
 
-  async update ({ params, request, response }) {
-    const survey = await Survey.findOrFail(params.id)
+  async update ({ auth, params, request, response }) {
+    const survey = await Survey.findByOrFail('uuid', params.uuid)
+    
+    if (survey.user_id !== auth.user.id){
+      return response.status(401).send({ error: 'User does not have access to this survey' })
+    }
+
     const data = request.only([
       'title',
       'description',

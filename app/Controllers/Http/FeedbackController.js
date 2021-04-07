@@ -26,7 +26,7 @@ class FeedbackController {
       })
       .fetch()
     
-    if (response_user) {
+    if (response_user.rows.length > 0) {
       return response.status(500).send({ error: 'User has already answered this survey' })
     }
     

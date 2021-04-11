@@ -31,6 +31,6 @@ jobs:
           echo Instaling all dependencies
           npm i
           echo Running adonis test
-          npm test
+          npx adonis test
 
       

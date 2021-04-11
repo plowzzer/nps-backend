@@ -27,20 +27,10 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-      - uses: "finnp/create-file-action@master"
-        env:
-          HOST: 127.0.0.1
-          PORT: 4000
-          NODE_ENV: testing
-          DB_CONNECTION: sqlite
-          DB_HOST: 127.0.0.1
-          DB_PORT: 3306
-          DB_USER: root
-          DB_PASSWORD: ''
-          DB_DATABASE: adonis_testing
-          HASH_DRIVER: bcrypt
+      - name: Create a env file
+        run: cp .env.testingexample .env
 
       - run: npm ci
       - name: Testing
         run: npm test
-        
+      

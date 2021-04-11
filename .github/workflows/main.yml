@@ -29,4 +29,7 @@ jobs:
           node-version: 12
       
       - run: npm ci
-      - run: npm test
+      - name: Testing
+        run: npm test
+        env:
+          CI: true

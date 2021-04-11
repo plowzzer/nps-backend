@@ -1,6 +1,6 @@
 'use strict'
 
-const { test, trait, before } = use('Test/Suite')('2. Survey')
+const { test, trait, before } = use('Test/Suite')('3. Feedback')
 
 const User = use('App/Models/User')
 const Survey = use('App/Models/Survey')
@@ -21,7 +21,7 @@ before(async () => {
   survey2 = await Survey.find(3)
 })
 
-test('success give feedback on survey', async ({client}) => {
+test('success giving feedbacks on a survey', async ({client}) => {
   const response = await client.post('/feedbacks')
     .send({
       survey_id: survey1.uuid, 
@@ -53,3 +53,45 @@ test('success give feedback on survey', async ({client}) => {
     response_user: "userId2"
   })
 })
+
+test('a user can not giving more then one feedback on a survey', async ({client}) => {
+  const response = await client.post('/feedbacks')
+    .send({
+      survey_id: survey1.uuid, 
+      value: 10,
+      response_user: "userId1"
+    })
+    .end()
+
+    response.assertStatus(500)
+    response.assertJSON({
+      error: "User has already answered this survey"
+    })
+})
+
+test('show a feedback', async ({client}) => {
+  const response = await client.get(`/feedbacks/1`)
+    .loginVia(user1)
+    .end()
+  
+  response.assertStatus(200)
+  response.assertJSONSubset({
+    id: 1,
+    survey_id: 1,
+    commentary: "Nothing to say",
+    response_user: "userId1",
+  })
+})
+
+test('not show a survey feedback that the user not have access', async ({client}) => {
+  const response = await client.get(`/feedbacks/1`)
+    .loginVia(user2)
+    .end()
+  
+  response.assertStatus(401)
+  response.assertJSON({
+    error: 'User does not have access to this survey'
+  })
+})
+
+// TODO : Delete feedback

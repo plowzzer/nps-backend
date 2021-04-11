@@ -34,9 +34,18 @@ class FeedbackController {
     return feedback
   }
 
-  async show ({ params, request, response, view }) {
+  async show ({ auth, params, request, response }) {
     const feedback = await Feedback.findOrFail(params.id)
     await feedback.load('survey')
+
+    const feedbackReturn = feedback.toJSON()
+    
+    const survey = await Survey.findByOrFail('uuid', feedbackReturn.survey.uuid)
+
+    if (survey.user_id !== auth.user.id){
+      return response.status(401).send({ error: 'User does not have access to this survey' })
+    }
+
     return feedback
   }
 

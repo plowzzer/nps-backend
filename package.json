@@ -1,12 +1,13 @@
 {
-  "name": "adonis-api-app",
-  "version": "4.1.0",
+  "name": "nps-api",
+  "version": "1.0.0",
   "adonis-version": "4.1.0",
-  "description": "Adonisjs boilerplate for API server with pre-configured JWT",
+  "description": "Basic NPS service with auth",
   "main": "index.js",
   "scripts": {
-    "start": "node server.js",
-    "test": "node ace test"
+    "start": "adonis serve",
+    "dev": "adonis serve --dev",
+    "test": "adonis test"
   },
   "keywords": [
     "adonisjs",

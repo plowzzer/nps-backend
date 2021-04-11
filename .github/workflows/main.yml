@@ -27,13 +27,6 @@ jobs:
       - uses: actions/setup-node@v1
         with:
           node-version: 12
-
-      # Runs a single command using the runners shell
-      - name: Test
-        run: |
-          echo Instaling all dependencies
-          npm i
-          echo Running adonis test
-          npm test
-
       
+      - run: npm ci
+      - run: npm test

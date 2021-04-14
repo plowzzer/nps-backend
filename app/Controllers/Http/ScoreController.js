@@ -2,6 +2,7 @@
 
 const Survey = use('App/Models/Survey')
 const Feedback = use('App/Models/Feedback')
+const Nps = use('App/Helpers/Nps')
 
 class ScoreController {
   async index ({auth, params, request, response}) {
@@ -25,7 +26,7 @@ class ScoreController {
       return survey.value >= 9 && survey.value <= 10
     }).length;
 
-    const nps = Number((((promoters - detractors) / totalAnswers) * 100).toFixed(2))
+    const nps = Nps.score(promoters, detractors, totalAnswers)
 
     return {
       nps,
